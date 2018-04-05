@@ -3,6 +3,7 @@
 require('dotenv').config({ silent: true });
 const args = require('args');
 const path = require('path');
+const chalk = require('chalk');
 const FrontendMasters = require('./lib/client');
 
 args
@@ -18,17 +19,19 @@ async function run(options) {
 
   try {
     const client = new FrontendMasters(format, resolution, dir);
+    console.log(chalk.yellow('Logging in as'), chalk.bold(process.env.FM_USERNAME));
     const authed = await client.authenticate(process.env.FM_USERNAME, process.env.FM_PASSWORD);
 
     if (authed) {
-      console.log(`${process.env.FM_USERNAME} Logged in.`);
+      console.log(chalk.cyan('Logged in successfull'));
       const data = await client.downloadCourseInfo(course);
-      console.log(`"${data.title}" course info downloaded`);
+      console.log(chalk.yellow(data.title), 'course info fetched');
       client.skipLessons(skip);
-      console.log(`"Downloading ${client.downloadQueue.length} videos`);
+
+      console.log(`Downloading ${chalk.yellow(client.downloadQueue.length)} videos`);
       await client.downloadCourse();
     } else {
-      console.log('Authentication failed');
+      throw new Error('Authentication failed');
     }
   } catch (e) {
     console.error(e);
