@@ -20,12 +20,13 @@
   "license": "MIT",
   "dependencies": {
     "args": "3.0.8",
-    "request": "2.83.0",
+    "dotenv": "^5.0.1",
+    "request": "2.85.0",
     "sanitize-filename": "1.6.1"
   },
   "devDependencies": {
-    "eslint": "4.16.0",
+    "eslint": "4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "2.8.0"
+    "eslint-plugin-import": "2.10.0"
   }
 }
